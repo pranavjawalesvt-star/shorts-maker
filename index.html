@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#111111">
+  <title>Shorts Maker</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>Shorts Maker</h1>
+</header>
+
+<main>
+  <!-- STEP 1: Upload -->
+  <section class="card">
+    <h2>1. Choose a video</h2>
+    <input type="file" id="fileInput" accept="video/*">
+    <div class="preview-wrap" id="previewWrap">
+      <video id="preview" controls playsinline></video>
+      <div id="captionPreview" class="caption-overlay" data-pos="bottom"></div>
+    </div>
+    <button id="btnTranscribe" disabled>Transcribe &amp; find clips</button>
+    <p id="status" class="status"></p>
+  </section>
+
+  <!-- STEP 2: Clips -->
+  <section id="step-clips" class="card hidden">
+    <h2>2. Viral clip suggestions</h2>
+    <p class="hint">Scored 1 to 10 by AI. Preview a clip, then tap Add.</p>
+    <div id="clipList"></div>
+
+    <h3>Your selection</h3>
+    <div id="selectedList"></div>
+
+    <div class="row">
+      <button id="btnRank" class="secondary">Sort by score</button>
+      <button id="btnStory" class="secondary">Story order (AI)</button>
+    </div>
+  </section>
+
+  <!-- STEP 3: Style & export -->
+  <section id="step-style" class="card hidden">
+    <h2>3. Style &amp; export</h2>
+
+    <label>Font
+      <select id="font"></select>
+    </label>
+
+    <label>Font size: <span id="fontSizeVal">48</span>
+      <input type="range" id="fontSize" min="24" max="96" value="48">
+    </label>
+
+    <label>Text color
+      <input type="color" id="textColor" value="#ffffff">
+    </label>
+
+    <label>Background box color
+      <input type="color" id="boxColor" value="#000000">
+    </label>
+
+    <label>Box opacity: <span id="boxOpacityVal">0.6</span>
+      <input type="range" id="boxOpacity" min="0" max="1" step="0.05" value="0.6">
+    </label>
+
+    <label>Caption position
+      <select id="position">
+        <option value="top">Top</option>
+        <option value="middle">Middle</option>
+        <option value="bottom" selected>Bottom</option>
+      </select>
+    </label>
+
+    <label>Aspect ratio
+      <select id="ratio">
+        <option value="9:16" selected>9:16 (Shorts / Reels)</option>
+        <option value="1:1">1:1 (Square)</option>
+        <option value="16:9">16:9 (Landscape)</option>
+      </select>
+    </label>
+
+    <button id="btnExport">Export selected clips</button>
+    <div id="results"></div>
+  </section>
+</main>
+
+<!-- FFmpeg.wasm (runs in the browser) -->
+<script src="https://unpkg.com/@ffmpeg/ffmpeg@0.12.10/dist/umd/ffmpeg.js"></script>
+<script src="https://unpkg.com/@ffmpeg/util@0.12.1/dist/umd/index.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
